@@ -1,4 +1,5 @@
 import { OrderDirectionEnum } from '@contracts/enums/index.enum';
+import { OrderStatusEnum } from '@contracts/enums/order-status.enum';
 import { IGetOrdersRpcRequest } from '@contracts/rpc/requests/order/get-orders.rpc-request.interface';
 import { Transform, Type } from 'class-transformer';
 import {
@@ -34,4 +35,9 @@ export class GetOrdersRpcRequest implements IGetOrdersRpcRequest {
   @IsEnum(OrderDirectionEnum)
   @IsOptional()
   order?: OrderDirectionEnum;
+
+  @Transform(({ value }) => value.toUpperCase())
+  @IsEnum(OrderStatusEnum)
+  @IsOptional()
+  status?: OrderStatusEnum;
 }

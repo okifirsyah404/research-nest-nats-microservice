@@ -25,9 +25,18 @@ export class OrderRepository extends Repository<OrderEntity> {
     userId: string,
     request: IGetOrdersRpcRequest,
   ): Promise<IRpcPaginationReply<IOrder>> {
-    const ALLOW_TO_SORT = ['created_at', 'grand_total'];
-
     const targetName = this.repository.metadata.targetName;
+
+    const ALLOW_TO_SORT = [
+      {
+        name: 'createdAt',
+        value: `${targetName}.createdAt`,
+      },
+      {
+        name: 'total',
+        value: `${targetName}.grandTotal`,
+      },
+    ];
 
     const query = this.createQueryBuilder(targetName)
       .select()
@@ -39,6 +48,12 @@ export class OrderRepository extends Repository<OrderEntity> {
       )
       .where(`${targetName}.userId = :userId`, { userId });
 
+    if (request.status) {
+      query.andWhere(`${targetName}.orderStatus = :status`, {
+        status: request.status,
+      });
+    }
+
     switch (request.sort) {
       case SortEnum.Latest:
         query.orderBy(`${targetName}.createdAt`, OrderDirectionEnum.DESC);
@@ -49,12 +64,8 @@ export class OrderRepository extends Repository<OrderEntity> {
         break;
 
       default:
-        query.orderBy(
-          ALLOW_TO_SORT.includes(request.sort)
-            ? `${targetName}.${request.sort}`
-            : `${targetName}.createdAt`,
-          request.order,
-        );
+        const sort = ALLOW_TO_SORT.find((item) => item.name === request.sort);
+        query.orderBy(sort.value ?? `${targetName}.createdAt`, request.order);
     }
 
     query.take(request.limit ?? PaginationUtils.DEFAULT_LIMIT).skip(

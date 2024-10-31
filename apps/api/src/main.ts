@@ -10,8 +10,6 @@ async function bootstrap(): Promise<void> {
 
   const logger = new Logger('Api Application Bootstrap');
 
-  // app.useGlobalPipes(new ValidationPipe());
-
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,

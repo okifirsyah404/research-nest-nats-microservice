@@ -31,7 +31,7 @@ export default class InitialSeeder implements Seeder {
         {
           userId: userId,
           grandTotal: 0,
-          orderStatus: OrderStatusEnum.PENDING,
+          orderStatus: this.randomOrderStatus(OrderStatusEnum),
         },
       ]);
       orderIds.push(order.identifiers[0].id);
@@ -77,5 +77,11 @@ export default class InitialSeeder implements Seeder {
     }
 
     console.log('Order Service initial data seeded! 🌱');
+  }
+
+  private randomOrderStatus<T>(anEnum: T): T[keyof T] {
+    const enumValues = Object.values(anEnum) as unknown as T[keyof T][];
+    const randomIndex = Math.floor(Math.random() * enumValues.length);
+    return enumValues[randomIndex];
   }
 }

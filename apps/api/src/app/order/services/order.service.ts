@@ -42,6 +42,7 @@ export class OrderService {
           order: reqQuery.order,
           page: reqQuery.page,
           sort: reqQuery.sort,
+          status: reqQuery.status,
         }),
       );
 
