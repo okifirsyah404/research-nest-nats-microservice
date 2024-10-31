@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@utils/": ["libs/@util/"],
+      "@utils/*": ["libs/@util/*"],
+      "@commons": ["libs/@common"],
+      "@commons/*": ["libs/@common/*"],
+      "@contracts/": ["libs/@contract"],
+      "@contracts/*": ["libs/@contract/*"],
+      "@infrastructures/": ["libs/@infrastructure"],
+      "@infrastructures/*": ["libs/@infrastructure/*"],
+      "@configs/app-config": ["libs/app-config/src"],
+      "@configs/app-config/*": ["libs/app-config/src/*"],
+      "@cache/app-cache": ["libs/app-cache/src"],
+      "@cache/app-cache/*": ["libs/app-cache/src/*"],
+      "@diceb/dicebear": ["libs/dicebear/src"],
+      "@diceb/dicebear/*": ["libs/dicebear/src/*"]
+    }
+  }
+}

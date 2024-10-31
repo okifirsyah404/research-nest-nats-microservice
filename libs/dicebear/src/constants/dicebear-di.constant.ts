@@ -1,0 +1,1 @@
+export const DICE_BEAR_OPTION = 'DICE_BEAR_OPTION';
