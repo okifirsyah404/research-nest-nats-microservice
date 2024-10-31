@@ -41,6 +41,10 @@ Available app: `user`, `product`, and `order`
 
 Available service: `user`, `product`, `order` or `all` (revert on `all` doesn't provided)
 
+## Project Messaging
+
+![nats-messaging](./.md/research-microservice-nats.png)
+
 ## Project Anatomy
 
 ```
