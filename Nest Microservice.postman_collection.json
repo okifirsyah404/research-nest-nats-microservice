@@ -183,7 +183,7 @@
 								"exec": [
 									"const resData = pm.response.json();\r",
 									"\r",
-									"if(resData.statusCode === 200) {\r",
+									"if(resData.statusCode === 200 && resData.data.length > 0) {\r",
 									"    pm.collectionVariables.set(\"PRODUCT_ID\", resData.data[0].id);\r",
 									"\r",
 									"    if(resData.data.length >= 3) {\r",
@@ -191,6 +191,16 @@
 									"        pm.collectionVariables.set(\"PRODUCT_ID_3\", resData.data[2].id);\r",
 									"    }\r",
 									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -296,6 +306,13 @@
 								],
 								"type": "text/javascript",
 								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -432,8 +449,20 @@
 									"const resData = pm.response.json();\r",
 									"\r",
 									"if(resData.statusCode === 200) {\r",
-									"    pm.collectionVariables.set(\"ORDER_ID\", resData.data[0].id);\r",
+									"    if(resData.data.length > 0) {\r",
+									"        pm.collectionVariables.set(\"ORDER_ID\", resData.data[0].id);\r",
+									"    }\r",
 									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -444,7 +473,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{NEST_HOST}}/orders?limit=50&sort=latest",
+							"raw": "{{NEST_HOST}}/orders?limit=50&sort=total&order=ASC&status=pending",
 							"host": [
 								"{{NEST_HOST}}"
 							],
@@ -458,12 +487,15 @@
 								},
 								{
 									"key": "sort",
-									"value": "latest"
+									"value": "total"
 								},
 								{
 									"key": "order",
-									"value": "ASC",
-									"disabled": true
+									"value": "ASC"
+								},
+								{
+									"key": "status",
+									"value": "pending"
 								}
 							]
 						}
@@ -503,6 +535,13 @@
 								],
 								"type": "text/javascript",
 								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
 							}
 						}
 					],
