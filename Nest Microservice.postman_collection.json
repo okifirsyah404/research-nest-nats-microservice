@@ -1,0 +1,627 @@
+{
+	"info": {
+		"_postman_id": "4eb58da6-2117-4d4c-9489-d12e52fa3b6c",
+		"name": "Nest Microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21192904"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Sign In",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resData = pm.response.json();\r",
+									"\r",
+									"if(resData.statusCode === 201) {\r",
+									"    pm.collectionVariables.set(\"ACCESS_TOKEN\", resData.data.accessToken);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"johndoe@example.com\",\r\n  \"password\": \"johndoe@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{NEST_HOST}}/auth/sign-in",
+							"host": [
+								"{{NEST_HOST}}"
+							],
+							"path": [
+								"auth",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Up",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resData = pm.response.json();\r",
+									"\r",
+									"if(resData.statusCode === 201) {\r",
+									"    pm.collectionVariables.set(\"ACCESS_TOKEN\", resData.data.accessToken);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"johndoe1211@example.com\",\r\n  \"password\": \"johndoe1@example.com\",\r\n  \"confirmPassword\": \"johndoe1@example.com\",\r\n  \"name\": \"John Doe 1\",\r\n  \"phoneNumber\": \"082143212404\",\r\n  \"address\": \"Bondowoso\",\r\n  \"bio\": \"Ingin Menjadi Programmer Handal, Namun Enggan Ngoding\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{NEST_HOST}}/auth/sign-up",
+							"host": [
+								"{{NEST_HOST}}"
+							],
+							"path": [
+								"auth",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NEST_HOST}}/profile",
+							"host": [
+								"{{NEST_HOST}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resData = pm.response.json();\r",
+									"\r",
+									"if(resData.statusCode === 200) {\r",
+									"    pm.collectionVariables.set(\"PRODUCT_ID\", resData.data[0].id);\r",
+									"\r",
+									"    if(resData.data.length >= 3) {\r",
+									"        pm.collectionVariables.set(\"PRODUCT_ID_2\", resData.data[1].id);\r",
+									"        pm.collectionVariables.set(\"PRODUCT_ID_3\", resData.data[2].id);\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NEST_HOST}}/products?limit=10&sort=name&order=DESC",
+							"host": [
+								"{{NEST_HOST}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "asdasd",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "name"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NEST_HOST}}/products/{{PRODUCT_ID}}",
+							"host": [
+								"{{NEST_HOST}}"
+							],
+							"path": [
+								"products",
+								"{{PRODUCT_ID}}"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "asdasd",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "name",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resData = pm.response.json();\r",
+									"\r",
+									"if(resData.statusCode === 200) {\r",
+									"    pm.collectionVariables.set(\"CATEGORY_ID\", resData.data[0].id);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NEST_HOST}}/products/categories?limit=10&sort=name&order=DESC",
+							"host": [
+								"{{NEST_HOST}}"
+							],
+							"path": [
+								"products",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "asdasd",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "name"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Books By Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NEST_HOST}}/products/categories/{{CATEGORY_ID}}",
+							"host": [
+								"{{NEST_HOST}}"
+							],
+							"path": [
+								"products",
+								"categories",
+								"{{CATEGORY_ID}}"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "asdasd",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "price",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Get Orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resData = pm.response.json();\r",
+									"\r",
+									"if(resData.statusCode === 200) {\r",
+									"    pm.collectionVariables.set(\"ORDER_ID\", resData.data[0].id);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NEST_HOST}}/orders?limit=50&sort=latest",
+							"host": [
+								"{{NEST_HOST}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "50"
+								},
+								{
+									"key": "sort",
+									"value": "latest"
+								},
+								{
+									"key": "order",
+									"value": "ASC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NEST_HOST}}/orders/{{ORDER_ID}}",
+							"host": [
+								"{{NEST_HOST}}"
+							],
+							"path": [
+								"orders",
+								"{{ORDER_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resData = pm.response.json();\r",
+									"\r",
+									"if(resData.statusCode === 201) {\r",
+									"    pm.collectionVariables.set(\"ORDER_ID\", resData.data.accessToken);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subOrders\": [\r\n        {\r\n            \"productId\": \"{{PRODUCT_ID}}\",\r\n            \"quantity\": 11\r\n        },\r\n        {\r\n            \"productId\": \"{{PRODUCT_ID_2}}\",\r\n            \"quantity\": 7\r\n        },\r\n        {\r\n            \"productId\": \"{{PRODUCT_ID_3}}\",\r\n            \"quantity\": 10\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{NEST_HOST}}/orders",
+							"host": [
+								"{{NEST_HOST}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "NEST_HOST",
+			"value": "http://localhost:54251",
+			"type": "string"
+		},
+		{
+			"key": "ACCESS_TOKEN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "PRODUCT_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "CATEGORY_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "ORDER_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "PRODUCT_ID_2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "PRODUCT_ID_3",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
