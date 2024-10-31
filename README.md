@@ -197,8 +197,6 @@ Available service: `user`, `product`, `order` or `all` (revert on `all` doesn't 
     │   ├── src/
     │   └── validations/
     ├── @util/
-    ├── app-cache/
-    │   └── src/
     ├── app-config/
     │   └── src/
     │       ├── configs/

@@ -129,7 +129,6 @@
       "^@contracts(|/.*)$": "<rootDir>/libs/@contract/$1",
       "^@infrastructures(|/.*)$": "<rootDir>/libs/@infrastructure/$1",
       "^@configs/app-config(|/.*)$": "<rootDir>/libs/app-config/src/$1",
-      "^@cache/app-cache(|/.*)$": "<rootDir>/libs/app-cache/src/$1",
       "^@diceb/dicebear(|/.*)$": "<rootDir>/libs/dicebear/src/$1"
     }
   }

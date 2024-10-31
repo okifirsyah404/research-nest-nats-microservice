@@ -31,8 +31,6 @@
       "@infrastructures/*": ["libs/@infrastructure/*"],
       "@configs/app-config": ["libs/app-config/src"],
       "@configs/app-config/*": ["libs/app-config/src/*"],
-      "@cache/app-cache": ["libs/app-cache/src"],
-      "@cache/app-cache/*": ["libs/app-cache/src/*"],
       "@diceb/dicebear": ["libs/dicebear/src"],
       "@diceb/dicebear/*": ["libs/dicebear/src/*"]
     }

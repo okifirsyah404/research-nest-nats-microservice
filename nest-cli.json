@@ -61,15 +61,6 @@
         "tsConfigPath": "libs/app-config/tsconfig.lib.json"
       }
     },
-    "app-cache": {
-      "type": "library",
-      "root": "libs/app-cache",
-      "entryFile": "index",
-      "sourceRoot": "libs/app-cache/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/app-cache/tsconfig.lib.json"
-      }
-    },
     "dicebear": {
       "type": "library",
       "root": "libs/dicebear",
