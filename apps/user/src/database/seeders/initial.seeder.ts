@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { loadDicebearModules } from '@diceb/dicebear/esm_loader/dicebear.loader';
 import { faker } from '@faker-js/faker';
 import * as bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
@@ -10,7 +11,6 @@ import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { AccountEntity } from '../entities/acccount.entity';
 import { ProfileEntity } from '../entities/profile.entity';
 import { UserEntity } from '../entities/user.entity';
-import { loadDicebearModules } from './loader/dicebear.loader';
 
 expand(dotenv.config());
 
