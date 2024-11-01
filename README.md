@@ -29,6 +29,12 @@ $ yarn run start <app_name>
 
 # watch mode
 $ yarn run start:dev <app_name>
+
+# run all
+$ yarn run start:all
+
+# run all watch mode
+$ yarn run dev:all
 ```
 
 Available app: `user`, `product`, and `order`
