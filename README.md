@@ -21,7 +21,7 @@ Research project for microservices
 5. Run seed `yarn db:all:seed`
 6. Run all applications `yarn dev:all` (watch mode) or `yarn start:all`
 
-## Run single project
+## Run project
 
 ```bash
 # development
