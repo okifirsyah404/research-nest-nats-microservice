@@ -1,14 +1,14 @@
-
 ## NestJS + NATS Microservice
 
 Research project for microservices
 
 ## Tech Stack
+
 - NodeJS v20.x
 - NestJS v10
 - NATS
 - Redis
-- PostgresSQL 
+- PostgresSQL
 
 ## Project setup
 
@@ -28,6 +28,7 @@ $ yarn run start <app_name>
 # watch mode
 $ yarn run start:dev <app_name>
 ```
+
 Available app: `user`, `product`, and `order`
 
 ## Database Commands
@@ -39,7 +40,7 @@ Available app: `user`, `product`, and `order`
 | `yarn db:<service_name>:migrate:revert`                    | Revert the migration                  |
 | `yarn db:<service_name>:seed`                              | Run the seeder                        |
 
-Available service: `user`, `product`, `order` or `all` (revert on `all` doesn't provided)
+Available service: `user`, `product`, `order` or `all` (`migrate:generate` and `revert` doesn't provided on `all`)
 
 ## Project Messaging
 
@@ -211,4 +212,3 @@ Available service: `user`, `product`, `order` or `all` (revert on `all` doesn't 
             └── providers/
 
 ```
-
