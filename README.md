@@ -2,13 +2,15 @@
 
 Research project for microservices
 
+![nats-messaging](./.md/research-microservice-nats.png)
+
 ## Tech Stack
 
 - NodeJS v20.x
 - NestJS v10
 - NATS
-- Redis
-- PostgresSQL
+- Redis 7.4.1
+- PostgresSQL 16.4
 
 ## Project setup
 
@@ -41,10 +43,6 @@ Available app: `user`, `product`, and `order`
 | `yarn db:<service_name>:seed`                              | Run the seeder                        |
 
 Available service: `user`, `product`, `order` or `all` (`migrate:generate` and `revert` doesn't provided on `all`)
-
-## Project Messaging
-
-![nats-messaging](./.md/research-microservice-nats.png)
 
 ## Project Anatomy
 
