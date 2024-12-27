@@ -17,13 +17,7 @@ expand(dotenv.config());
 export default class InitialSeeder implements Seeder {
   track?: boolean;
 
-  private readonly userImageDir = path.join(
-    process.cwd(),
-    'apps',
-    'api',
-    'public',
-    'user',
-  );
+  private readonly userImageDir = path.join(process.cwd(), 'public', 'user');
 
   async run(
     dataSource: DataSource,
@@ -124,6 +118,8 @@ export default class InitialSeeder implements Seeder {
   }> {
     const { initials, toPng, createAvatar } = await loadDicebearModules();
 
+    console.log('Generating avatar for', data.seed);
+
     const avatar = createAvatar(initials, {
       seed: data.seed,
       size: 120,
@@ -145,23 +141,21 @@ export default class InitialSeeder implements Seeder {
   }
 
   private _generateRawOrderSeeder(userId: string): void {
-    const rawOrderSeederPath = path.join(
-      process.cwd(),
-      'apps',
-      'order',
-      'src',
-      'database',
-      'seeders',
-      'raw',
-    );
+    const rawOrderSeederPath = path.join(process.cwd(), 'seeders', 'raw');
 
     this._checkDirectory(rawOrderSeederPath);
 
-    fs.writeFileSync(
+    fs.writeFile(
       path.join(rawOrderSeederPath, 'order-user-id.json'),
       JSON.stringify({
         userId: userId,
       }),
+      (err) => {
+        if (err) {
+          console.error(err);
+        }
+        console.log('order-user-id.json created!');
+      },
     );
   }
 

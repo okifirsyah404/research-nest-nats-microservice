@@ -6,6 +6,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
+import * as fs from 'fs';
 
 async function bootstrap(): Promise<void> {
   const logger = new Logger('Product Service');
@@ -39,6 +40,12 @@ async function bootstrap(): Promise<void> {
 
   await app.listen().then(() => {
     logger.log(`Product Service is connected to: ${config.url}`);
+
+    fs.writeFile('/tmp/product-service-ready', 'ready', (err) => {
+      if (err) {
+        logger.error(err);
+      }
+    });
   });
 }
 bootstrap();

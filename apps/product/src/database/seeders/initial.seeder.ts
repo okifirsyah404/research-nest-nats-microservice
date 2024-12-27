@@ -88,15 +88,7 @@ export default class InitialSeeder implements Seeder {
       price: number;
     }[],
   ): Promise<void> {
-    const rawOrderSeederPath = path.join(
-      process.cwd(),
-      'apps',
-      'order',
-      'src',
-      'database',
-      'seeders',
-      'raw',
-    );
+    const rawOrderSeederPath = path.join(process.cwd(), 'seeders', 'raw');
 
     if (!(await fs.readdir(rawOrderSeederPath))) {
       await fs.mkdir(rawOrderSeederPath, { recursive: true });

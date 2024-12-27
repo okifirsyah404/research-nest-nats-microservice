@@ -4,6 +4,7 @@ import { CacheModule, CacheStore } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { redisStore } from 'cache-manager-ioredis-yet';
+import { RedisOptions } from 'ioredis';
 import { dataSourceConfig } from '../database/config/typeorm.config';
 import { QueueModule } from '../modules/queue/queue.module';
 import { AuthModule } from './auth/auth.module';
@@ -21,11 +22,9 @@ import { ProfileModule } from './profile/profile.module';
       imports: [AppConfigModule],
       inject: [AppConfigService],
       useFactory: async (appConfig: AppConfigService) => {
-        const store = await redisStore({
-          socket: {
-            host: appConfig.redisConfig.host,
-            port: appConfig.redisConfig.port,
-          },
+        const store = await redisStore(<RedisOptions>{
+          host: appConfig.redisConfig.host,
+          port: appConfig.redisConfig.port,
           ttl: appConfig.redisConfig.ttl * 1000,
         });
 

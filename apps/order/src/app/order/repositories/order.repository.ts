@@ -3,7 +3,7 @@ import { ISubOrder } from '@contracts/entities/order/sub-order.interface';
 import { OrderDirectionEnum, SortEnum } from '@contracts/enums/index.enum';
 import { IRpcPaginationReply } from '@contracts/rpc/replies/base.rpc-reply.interface';
 import { IGetOrdersRpcRequest } from '@contracts/rpc/requests/order/get-orders.rpc-request.interface';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationUtils } from '@utils/pagination.util';
 import { OrderEntity } from 'apps/order/src/database/entities/order.entity';
@@ -18,8 +18,6 @@ export class OrderRepository extends Repository<OrderEntity> {
   ) {
     super(repository.target, repository.manager, repository.queryRunner);
   }
-
-  private readonly logger = new Logger(OrderRepository.name);
 
   async paginate(
     userId: string,
@@ -74,8 +72,6 @@ export class OrderRepository extends Repository<OrderEntity> {
         limit: request.limit,
       }),
     );
-
-    this.logger.log(`Query: ${query.getQuery()}`);
 
     const [data, count] = await query.getManyAndCount();
 

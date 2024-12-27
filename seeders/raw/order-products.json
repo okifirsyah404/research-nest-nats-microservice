@@ -1,0 +1,54 @@
+{
+  "data": [
+    {
+      "id": "502f82d3-42ce-4340-a1e1-56006a5246ae",
+      "name": "Ergonomic Steel Towels",
+      "price": 6000
+    },
+    {
+      "id": "2fbc7a12-7892-49fc-a43f-7444e88eecc1",
+      "name": "Oriental Fresh Table",
+      "price": 5000
+    },
+    {
+      "id": "2300788b-da6c-4b9a-a9f2-3def2a9e9c6f",
+      "name": "Luxurious Concrete Car",
+      "price": 2000
+    },
+    {
+      "id": "35bb9f85-04a9-4cc6-8e91-266a6dceb7e1",
+      "name": "Sleek Fresh Shoes",
+      "price": 9000
+    },
+    {
+      "id": "9780cb9f-ae07-455b-86d0-10e654f497e3",
+      "name": "Tasty Frozen Pants",
+      "price": 5000
+    },
+    {
+      "id": "cfb86e7a-9a8d-420b-bf08-da4dbfb67538",
+      "name": "Sleek Granite Pants",
+      "price": 7000
+    },
+    {
+      "id": "e7cbc78c-56f2-4f28-8ba2-3b0f46bb0807",
+      "name": "Recycled Wooden Soap",
+      "price": 5000
+    },
+    {
+      "id": "7784f186-8a73-40ee-a6b9-ee81fabe80b6",
+      "name": "Tasty Cotton Ball",
+      "price": 8000
+    },
+    {
+      "id": "9c925d3c-2be0-43bd-9238-88ab2b683eab",
+      "name": "Tasty Concrete Keyboard",
+      "price": 9000
+    },
+    {
+      "id": "57dc9d54-0d5f-4861-9c1d-2d3e9292a0fb",
+      "name": "Ergonomic Frozen Salad",
+      "price": 1000
+    }
+  ]
+}

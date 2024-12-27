@@ -28,8 +28,7 @@ export const dataSourceConfig: DataSourceOptions & SeederOptions = {
   entities: [join(__dirname, '..', 'entities', '*{.ts,.js}')],
   migrations: [join(__dirname, '..', 'migrations', '*{.ts,.js}')],
   migrationsTableName: '__migrations',
-  seeds: [`./apps/order/src/database/seeders/*{.ts,.js}`],
-  factories: [`./apps/order/src/database/factories/*{.ts,.js}`],
+  seeds: [join(__dirname, '..', 'seeders', 'initial.seeder{.ts,.js}')],
   namingStrategy: new SnakeNamingStrategy(),
 };
 

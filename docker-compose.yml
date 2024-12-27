@@ -1,0 +1,158 @@
+version: '3.6'
+services:
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES=${DB_USER_SERVICE_NAME:?},${DB_PRODUCT_SERVICE_NAME:?},${DB_ORDER_SERVICE_NAME:?}
+      - POSTGRES_USER=${DB_USERNAME:?}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:?}
+    ports:
+      - 43711:${DB_PORT:?}
+    env_file:
+      - .env
+    networks:
+      - nats-microservices
+    volumes:
+      - ./multiple-databases.sh:/docker-entrypoint-initdb.d/multiple-databases.sh
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME:?} -h localhost']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  cache-redis:
+    image: redis:latest
+    ports:
+      - 43712:${REDIS_PORT:?}
+    env_file:
+      - .env
+    command: redis-server
+    networks:
+      - nats-microservices
+    volumes:
+      - cache-data:/data
+
+  nats:
+    image: nats:latest
+    ports:
+      - 44222:${NATS_PORT:?}
+    env_file:
+      - .env
+    networks:
+      - nats-microservices
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    env_file:
+      - .env
+    ports:
+      - ${APP_API_PORT:?}:54251
+    depends_on:
+      db:
+        condition: service_healthy
+      cache-redis:
+        condition: service_started
+      nats:
+        condition: service_started
+      user:
+        condition: service_healthy
+      product:
+        condition: service_healthy
+      order:
+        condition: service_healthy
+    volumes:
+      - microservices-public-data:/usr/src/app/public
+    networks:
+      - nats-microservices
+
+  user:
+    build:
+      context: .
+      dockerfile: Dockerfile.user
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      cache-redis:
+        condition: service_started
+      nats:
+        condition: service_started
+    command: sh -c 'yarn run db:user:migrate:run && yarn db:user:seed && node dist/apps/user/apps/user/src/main.js'
+    volumes:
+      - microservices-public-data:/usr/src/app/public
+      - microservices-seeder-data:/usr/src/app/seeders
+    networks:
+      - nats-microservices
+    healthcheck:
+      test: ['CMD-SHELL', 'test -f /tmp/user-service-ready || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  product:
+    build:
+      context: .
+      dockerfile: Dockerfile.product
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      cache-redis:
+        condition: service_started
+      nats:
+        condition: service_started
+      user:
+        condition: service_healthy
+    command: sh -c 'yarn run db:product:migrate:run && yarn db:product:seed && node dist/apps/product/apps/product/src/main.js'
+    volumes:
+      - microservices-public-data:/usr/src/app/public
+      - microservices-seeder-data:/usr/src/app/seeders
+    networks:
+      - nats-microservices
+    healthcheck:
+      test: ['CMD-SHELL', 'test -f /tmp/product-service-ready || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  order:
+    build:
+      context: .
+      dockerfile: Dockerfile.order
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      cache-redis:
+        condition: service_started
+      nats:
+        condition: service_started
+      user:
+        condition: service_healthy
+      product:
+        condition: service_healthy
+    command: sh -c 'yarn run db:order:migrate:run && yarn db:order:seed && node dist/apps/order/apps/order/src/main.js'
+    volumes:
+      - microservices-public-data:/usr/src/app/public
+      - microservices-seeder-data:/usr/src/app/dist/apps/order/seeders
+    networks:
+      - nats-microservices
+    healthcheck:
+      test: ['CMD-SHELL', 'test -f /tmp/order-service-ready || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  cache-data:
+  microservices-public-data:
+  microservices-seeder-data:
+
+networks:
+  nats-microservices:
+    driver: bridge

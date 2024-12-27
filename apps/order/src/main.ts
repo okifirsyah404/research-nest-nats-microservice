@@ -5,6 +5,7 @@ import { rpcValidationExceptionFactory } from '@infrastructures/validations/rpc-
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import * as fs from 'fs';
 import { AppModule } from './app/app.module';
 
 async function bootstrap(): Promise<void> {
@@ -39,6 +40,12 @@ async function bootstrap(): Promise<void> {
 
   await app.listen().then(() => {
     logger.log(`Order Service is connected to: ${config.url}`);
+
+    fs.writeFile('/tmp/order-service-ready', 'ready', (err) => {
+      if (err) {
+        logger.error(err);
+      }
+    });
   });
 }
 bootstrap();

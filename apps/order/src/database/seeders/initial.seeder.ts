@@ -5,10 +5,10 @@ import * as dotenv from 'dotenv';
 import { expand } from 'dotenv-expand';
 import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
+import { data } from '../../../../../seeders/raw/order-products.json';
+import { userId } from '../../../../../seeders/raw/order-user-id.json';
 import { OrderEntity } from '../entities/order.entity';
 import { SubOrderEntity } from '../entities/sub-order.entity';
-import { data } from './raw/order-products.json';
-import { userId } from './raw/order-user-id.json';
 
 expand(dotenv.config());
 
@@ -19,6 +19,8 @@ export default class InitialSeeder implements Seeder {
     factoryManager: SeederFactoryManager,
   ): Promise<void> {
     console.log('Seeding Order Service initial data... 🌱');
+    console.log(`userId: ${JSON.stringify(userId)}`);
+    console.log(`data: ${JSON.stringify(data)}`);
     await dataSource.query('TRUNCATE "orders" RESTART IDENTITY CASCADE;');
 
     const orderRepo = dataSource.getRepository(OrderEntity);

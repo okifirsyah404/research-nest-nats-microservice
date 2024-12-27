@@ -1,0 +1,17 @@
+FROM nest-microservice/builder AS base
+
+FROM node:lts-alpine
+
+WORKDIR /usr/src/app
+
+COPY --from=base /usr/src/app/node_modules ./node_modules
+COPY --from=base /usr/src/app/dist/apps/order ./dist/apps/order
+COPY --from=base /usr/src/app/package*.json ./
+COPY --from=base /usr/src/app/yarn.lock ./
+COPY --from=base /usr/src/app/tsconfig.* ./
+COPY --from=base /usr/src/app/.env ./
+COPY --from=base /usr/src/app/public ./public
+COPY --from=base /usr/src/app/seeders ./seeders
+
+
+CMD ["node", "dist/apps/order/apps/order/src/main.js"]

@@ -16,13 +16,7 @@ export class DiceBearService {
     private readonly options: DiceBearOptions,
   ) {}
 
-  private readonly dirPath = path.join(
-    process.cwd(),
-    'apps',
-    'api',
-    'public',
-    'user',
-  );
+  private readonly dirPath = path.join(process.cwd(), 'public', 'user');
 
   async generateAvatar(data: IDiceBearGenerateParams): Promise<IDiceBear> {
     const { initials, toPng, createAvatar } = await loadDicebearModules();

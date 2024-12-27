@@ -56,10 +56,8 @@ import { OrderModule } from './order/order.module';
       inject: [AppConfigService],
       useFactory: async (appConfig: AppConfigService) => {
         const store = await redisStore({
-          socket: {
-            host: appConfig.redisConfig.host,
-            port: appConfig.redisConfig.port,
-          },
+          host: appConfig.redisConfig.host,
+          port: appConfig.redisConfig.port,
           ttl: appConfig.redisConfig.ttl * 1000,
         });
 

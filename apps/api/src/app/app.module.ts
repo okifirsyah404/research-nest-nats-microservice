@@ -64,7 +64,7 @@ import { ProfileModule } from './profile/profile.module';
       ],
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(process.cwd(), 'apps', 'api', 'public'),
+      rootPath: join(process.cwd(), 'public'),
       renderPath: '/public',
       serveRoot: '/public',
     }),
