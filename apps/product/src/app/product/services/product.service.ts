@@ -18,7 +18,16 @@ export class ProductService {
   async paginate(
     request: IGetProductsRpcRequest,
   ): Promise<IRpcPaginationReply<IProduct>> {
-    return this.productRepository.paginate(request);
+    const cachedProducts: IRpcPaginationReply<IProduct> =
+      await this.cacheManager.get(`products:${JSON.stringify(request)}`);
+
+    if (cachedProducts) {
+      return cachedProducts;
+    }
+
+    const result = this.productRepository.paginate(request);
+
+    this.cacheManager.set(`products:${JSON.stringify(request)}`, result);
   }
 
   async findOneById(id: string): Promise<IProduct> {
@@ -42,7 +51,19 @@ export class ProductService {
   }
 
   async findManyByIds(ids: string[]): Promise<IProduct[]> {
-    return this.productRepository.findManyProductsByIds(ids);
+    const cachedProducts: IProduct[] = await this.cacheManager.get(
+      `products:${JSON.stringify(ids)}`,
+    );
+
+    if (cachedProducts) {
+      return cachedProducts;
+    }
+
+    const result = this.productRepository.findManyProductsByIds(ids);
+
+    this.cacheManager.set(`products:${JSON.stringify(ids)}`, result);
+
+    return result;
   }
 
   async getProductQuantity(productId: string): Promise<number> {

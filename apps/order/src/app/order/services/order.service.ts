@@ -76,7 +76,12 @@ export class OrderService {
           grandTotal: +order.grandTotal,
           orderStatus: order.orderStatus,
           subOrderCount: order.subOrders.length ?? 0,
-          subOrders: order.subOrders,
+          subOrders: order.subOrders.map((subOrder) => ({
+            id: subOrder.id,
+            productId: subOrder.productId,
+            quantity: subOrder.quantity,
+            subTotal: +subOrder.subTotal,
+          })),
           firstProduct: productSample.data,
         });
       } catch (error) {
@@ -139,7 +144,7 @@ export class OrderService {
 
     const formattedOrder: IGetOrderRpcReply = {
       id: result.id,
-      grandTotal: result.grandTotal,
+      grandTotal: +result.grandTotal,
       orderStatus: result.orderStatus,
       subOrderCount: formattedSubOrders.length,
       subOrders: formattedSubOrders,

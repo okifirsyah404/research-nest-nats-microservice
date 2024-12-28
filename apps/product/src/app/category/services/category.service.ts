@@ -23,6 +23,20 @@ export class CategoryService {
   async paginationProducts(
     request: IGetProductsByCategoryRpcRequest,
   ): Promise<IRpcPaginationReply<IProduct>> {
-    return this.productRepository.paginateByCategoryId(request);
+    const result = await this.productRepository.paginateByCategoryId(request);
+
+    return {
+      message: result.message,
+      pagination: result.pagination,
+      data: result.data.map((product) => ({
+        id: product.id,
+        name: product.name,
+        stock: product.stock,
+        price: +product.price,
+        image: product.image,
+        description: product.description,
+        categoryId: product.categoryId,
+      })),
+    };
   }
 }
