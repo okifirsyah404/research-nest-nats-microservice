@@ -25,6 +25,7 @@ export const dataSourceConfig: DataSourceOptions & SeederOptions = {
   username: process.env.DB_USERNAME || 'postgres',
   password: process.env.DB_PASSWORD || 'postgres',
   database: process.env.DB_USER_SERVICE_NAME || 'user',
+  ssl: process.env.DB_SSL === 'true',
   entities: [join(__dirname, '..', 'entities', '*{.ts,.js}')],
   migrations: [join(__dirname, '..', 'migrations', '*{.ts,.js}')],
   migrationsTableName: '__migrations',

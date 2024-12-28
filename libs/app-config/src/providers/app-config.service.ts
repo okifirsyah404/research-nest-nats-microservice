@@ -68,6 +68,7 @@ export class AppConfigService {
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       synchronize: process.env.DB_SYNCHRONIZE === 'true',
+      useSSL: process.env.DB_SSL === 'true',
       userDatabaseName: process.env.DB_USER_SERVICE_NAME,
       productDatabaseName: process.env.DB_PRODUCT_SERVICE_NAME,
       orderDatabaseName: process.env.DB_ORDER_SERVICE_NAME,

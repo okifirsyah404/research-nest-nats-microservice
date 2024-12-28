@@ -1,24 +1,5 @@
 version: '3.6'
 services:
-  db:
-    image: postgres:alpine
-    environment:
-      - POSTGRES_MULTIPLE_DATABASES=${DB_USER_SERVICE_NAME:?},${DB_PRODUCT_SERVICE_NAME:?},${DB_ORDER_SERVICE_NAME:?}
-      - POSTGRES_USER=${DB_USERNAME:?}
-      - POSTGRES_PASSWORD=${DB_PASSWORD:?}
-    ports:
-      - 43711:${DB_PORT:?}
-    env_file:
-      - .env
-    networks:
-      - nats-microservices
-    volumes:
-      - ./multiple-databases.sh:/docker-entrypoint-initdb.d/multiple-databases.sh
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME:?} -h localhost']
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   cache-redis:
     image: redis:latest
@@ -50,8 +31,6 @@ services:
     ports:
       - ${APP_API_PORT:?}:54251
     depends_on:
-      db:
-        condition: service_healthy
       cache-redis:
         condition: service_started
       nats:
@@ -74,8 +53,6 @@ services:
     env_file:
       - .env
     depends_on:
-      db:
-        condition: service_healthy
       cache-redis:
         condition: service_started
       nats:
@@ -99,8 +76,6 @@ services:
     env_file:
       - .env
     depends_on:
-      db:
-        condition: service_healthy
       cache-redis:
         condition: service_started
       nats:
@@ -126,8 +101,6 @@ services:
     env_file:
       - .env
     depends_on:
-      db:
-        condition: service_healthy
       cache-redis:
         condition: service_started
       nats:

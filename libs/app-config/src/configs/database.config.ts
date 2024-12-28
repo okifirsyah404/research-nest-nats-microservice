@@ -18,6 +18,7 @@ export type DatabaseConfig = {
   username: string;
   password: string;
   synchronize: boolean;
+  useSSL: boolean;
   userDatabaseName: string;
   productDatabaseName: string;
   orderDatabaseName: string;
@@ -36,6 +37,7 @@ export const registerDatabaseConfig = registerAs(
     password: process.env.DB_PASSWORD,
     synchronize: process.env.DB_SYNCHRONIZE === 'true',
     userDatabaseName: process.env.DB_USER_SERVICE_NAME,
+    useSSL: process.env.DB_SSL === 'true',
     productDatabaseName: process.env.DB_PRODUCT_SERVICE_NAME,
     orderDatabaseName: process.env.DB_ORDER_SERVICE_NAME,
   }),
@@ -67,6 +69,11 @@ export class DatabaseConfigEnvironmentVariables {
   @IsDefined()
   @IsBoolean()
   DB_SYNCHRONIZE: boolean;
+
+  @Type(() => Boolean)
+  @IsDefined()
+  @IsBoolean()
+  DB_SSL: boolean;
 
   @IsDefined()
   @IsString()
