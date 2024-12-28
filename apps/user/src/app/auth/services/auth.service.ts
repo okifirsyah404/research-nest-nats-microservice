@@ -34,6 +34,16 @@ export class AuthService {
   private readonly logger = new Logger(AuthService.name);
 
   async basicSignIn(reqData: AuthSignInRpcRequest): Promise<IAuthJwtRpcReply> {
+    const cachedAccess: string = await this.cacheManager.get(
+      `sign-in:${reqData.email}`,
+    );
+
+    if (cachedAccess) {
+      return {
+        accessToken: cachedAccess,
+      };
+    }
+
     const result = await this.accountRepository.findOneByEmail(reqData.email);
 
     if (!result) {
@@ -55,6 +65,8 @@ export class AuthService {
     };
 
     const accessToken = await this.jwtService.signAsync(payload);
+
+    await this.cacheManager.set(`sign-in:${reqData.email}`, accessToken);
 
     return {
       accessToken,
