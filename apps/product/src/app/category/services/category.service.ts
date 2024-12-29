@@ -35,7 +35,7 @@ export class CategoryService {
         price: +product.price,
         image: product.image,
         description: product.description,
-        categoryId: product.categoryId,
+        category: product.category,
       })),
     };
   }
