@@ -73,7 +73,7 @@ export class OrderRepository extends Repository<OrderEntity> {
       }),
     );
 
-    const [data, count] = await query.getManyAndCount();
+    const [data, count] = await query.cache(true).getManyAndCount();
 
     const meta = PaginationUtils.mapMeta(count, {
       limit: request.limit,
@@ -90,6 +90,7 @@ export class OrderRepository extends Repository<OrderEntity> {
     return this.findOne({
       where: { id: orderId },
       relations: ['subOrders'],
+      cache: true,
     });
   }
 

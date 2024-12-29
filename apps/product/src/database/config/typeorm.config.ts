@@ -32,10 +32,10 @@ export const dataSourceConfig: DataSourceOptions & SeederOptions = {
   seeds: [join(__dirname, '..', 'seeders', 'initial.seeder{.ts,.js}')],
   cache: {
     type: 'ioredis',
-    duration: 120000,
+    duration: 1200000,
     options: {
-      host: process.env.REDIS_HOST || 'localhost',
-      port: parseInt(process.env.REDIS_PORT || '6379'),
+      host: process.env.REDIS_HOST,
+      port: parseInt(process.env.REDIS_PORT),
     },
   },
   namingStrategy: new SnakeNamingStrategy(),

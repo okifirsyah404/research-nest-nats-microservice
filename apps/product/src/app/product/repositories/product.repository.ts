@@ -70,7 +70,7 @@ export class ProductRepository extends Repository<ProductEntity> {
       }),
     );
 
-    const [data, count] = await query.getManyAndCount();
+    const [data, count] = await query.cache(true).getManyAndCount();
 
     const meta = PaginationUtils.mapMeta(count, {
       limit: request.limit,
@@ -87,6 +87,7 @@ export class ProductRepository extends Repository<ProductEntity> {
     const result = this.findOne({
       where: { id },
       relations: ['category'],
+      cache: true,
     });
 
     return result;
@@ -98,6 +99,7 @@ export class ProductRepository extends Repository<ProductEntity> {
         id: In(ids),
       },
       relations: ['category'],
+      cache: true,
     });
 
     return result ?? [];
@@ -105,10 +107,7 @@ export class ProductRepository extends Repository<ProductEntity> {
 
   async getProductQuantityById(id: string): Promise<number> {
     const result = await this.findOne({
-      cache: {
-        id,
-        milliseconds: this.config.redisConfig.ttl * 1000,
-      },
+      cache: true,
       where: { id },
       select: ['stock'],
     });

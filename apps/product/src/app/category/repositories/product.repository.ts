@@ -70,7 +70,7 @@ export class ProductRepository extends Repository<ProductEntity> {
       }),
     );
 
-    const [data, count] = await query.getManyAndCount();
+    const [data, count] = await query.cache(true).getManyAndCount();
 
     const meta = PaginationUtils.mapMeta(count, {
       limit: request.limit,

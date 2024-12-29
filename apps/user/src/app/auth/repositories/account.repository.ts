@@ -20,6 +20,7 @@ export class AccountRepository extends Repository<AccountEntity> {
 
   async findOneByEmail(email: string): Promise<IAccount | null> {
     const result = await this.repository.findOne({
+      cache: true,
       where: {
         email,
       },
