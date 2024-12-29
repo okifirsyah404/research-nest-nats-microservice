@@ -30,6 +30,14 @@ export const dataSourceConfig: DataSourceOptions & SeederOptions = {
   migrations: [join(__dirname, '..', 'migrations', '*{.ts,.js}')],
   migrationsTableName: '__migrations',
   seeds: [join(__dirname, '..', 'seeders', 'initial.seeder{.ts,.js}')],
+  cache: {
+    type: 'ioredis',
+    duration: 120000,
+    options: {
+      host: process.env.REDIS_HOST || 'localhost',
+      port: parseInt(process.env.REDIS_PORT || '6379'),
+    },
+  },
   namingStrategy: new SnakeNamingStrategy(),
 };
 
