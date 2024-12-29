@@ -1,6 +1,5 @@
 version: '3.6'
 services:
-
   cache-redis:
     image: redis:latest
     ports:
@@ -12,6 +11,11 @@ services:
       - nats-microservices
     volumes:
       - cache-data:/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 500M
 
   nats:
     image: nats:latest
