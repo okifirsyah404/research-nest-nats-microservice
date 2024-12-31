@@ -58,7 +58,7 @@ export class CategoryRepository extends Repository<CategoryEntity> {
       }),
     );
 
-    const [data, count] = await query.cache(true).getManyAndCount();
+    const [data, count] = await query.getManyAndCount();
 
     const meta = PaginationUtils.mapMeta(count, {
       limit: request.limit,

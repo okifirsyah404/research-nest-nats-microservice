@@ -73,7 +73,7 @@ export class OrderRepository extends Repository<OrderEntity> {
       }),
     );
 
-    const [data, count] = await query.cache(true).getManyAndCount();
+    const [data, count] = await query.getManyAndCount();
 
     const meta = PaginationUtils.mapMeta(count, {
       limit: request.limit,

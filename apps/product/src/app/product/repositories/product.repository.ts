@@ -70,7 +70,7 @@ export class ProductRepository extends Repository<ProductEntity> {
       }),
     );
 
-    const [data, count] = await query.cache(true).getManyAndCount();
+    const [data, count] = await query.getManyAndCount();
 
     const meta = PaginationUtils.mapMeta(count, {
       limit: request.limit,
@@ -99,7 +99,6 @@ export class ProductRepository extends Repository<ProductEntity> {
         id: In(ids),
       },
       relations: ['category'],
-      cache: true,
     });
 
     return result ?? [];
