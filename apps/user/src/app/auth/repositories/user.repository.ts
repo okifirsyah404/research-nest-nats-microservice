@@ -29,7 +29,6 @@ export class UserRepository extends Repository<UserEntity> {
         },
       },
       relations: ['account'],
-      cache: true,
     });
 
     return result || null;

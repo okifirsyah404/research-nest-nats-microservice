@@ -30,14 +30,6 @@ export const dataSourceConfig: DataSourceOptions & SeederOptions = {
   migrationsTableName: '__migrations',
   ssl: process.env.DB_SSL === 'true',
   seeds: [join(__dirname, '..', 'seeders', 'initial.seeder{.ts,.js}')],
-  cache: {
-    type: 'ioredis',
-    duration: 10000,
-    options: {
-      host: process.env.REDIS_HOST,
-      port: parseInt(process.env.REDIS_PORT),
-    },
-  },
   namingStrategy: new SnakeNamingStrategy(),
 };
 

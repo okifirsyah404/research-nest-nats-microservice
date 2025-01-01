@@ -87,7 +87,6 @@ export class ProductRepository extends Repository<ProductEntity> {
     const result = this.findOne({
       where: { id },
       relations: ['category'],
-      cache: true,
     });
 
     return result;
@@ -106,7 +105,6 @@ export class ProductRepository extends Repository<ProductEntity> {
 
   async getProductQuantityById(id: string): Promise<number> {
     const result = await this.findOne({
-      cache: true,
       where: { id },
       select: ['stock'],
     });

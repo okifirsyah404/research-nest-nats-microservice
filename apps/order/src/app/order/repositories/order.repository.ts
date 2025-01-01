@@ -90,7 +90,6 @@ export class OrderRepository extends Repository<OrderEntity> {
     return this.findOne({
       where: { id: orderId },
       relations: ['subOrders'],
-      cache: true,
     });
   }
 
