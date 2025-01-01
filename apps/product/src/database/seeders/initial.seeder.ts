@@ -56,8 +56,8 @@ export default class InitialSeeder implements Seeder {
         {
           name: productName,
           stock: faker.number.int({
-            min: 1,
-            max: 100,
+            min: 10000,
+            max: 100000,
           }),
           price: productPrice,
           image: 'https://picsum.photos/200',
